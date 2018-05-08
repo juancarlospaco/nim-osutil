@@ -1,7 +1,7 @@
-# nim-os-utils
+# nim-os-util
 
-Set the current Process name in Nim, shows up on system monitor with custom name.
-Turn Display Off using Nim, 1 proc, turns off monitor, designed for long running tasks on mobile devices to save battery.
+- Set the current Process name in Nim, shows up on system monitor with custom name.
+- Turn Display Off using Nim, 1 proc, turns off monitor, designed for long running tasks on mobile devices to save battery.
 
 ![screenshot](temp.png)
 
@@ -9,9 +9,8 @@ Turn Display Off using Nim, 1 proc, turns off monitor, designed for long running
 # Use
 
 ```nim
->>> import set_process_name
+>>> import osutil
 >>> echo set_process_name("MyAwesomeNimApp")
->> import set_display_off
 >>> echo set_display_off()
 (output: "", exitCode: 0)
 ```
@@ -20,7 +19,7 @@ Turn Display Off using Nim, 1 proc, turns off monitor, designed for long running
 # Install
 
 ```
-nimble install osutils
+nimble install osutil
 ```
 
 
