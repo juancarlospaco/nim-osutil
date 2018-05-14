@@ -41,3 +41,4 @@ proc clipboard_paste*(): tuple[output: TaintedString, exitCode: int] =
 if is_main_module:
   echo set_display_off()
   echo set_process_name("MY_PROCESS_NAME")
+  echo clipboard_paste()
