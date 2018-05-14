@@ -22,18 +22,18 @@ when defined linux:
     prctl(name=cstring(name))
 
 
-proc clipboard_copy*(content: string): tuple[output: TaintedString, exitCode: int] =
-  ## Clipboard copy functionality.
-  when defined linux:
-    return execCmdEx(fmt"xclip -selection clipboard {content}")
-  elif defined macosx:
-    return execCmdEx(fmt"pbcopy {content}")
+# proc clipboard_copy*(content: string): tuple[output: TaintedString, exitCode: int] =
+#   ## Clipboard copy functionality.
+#   when defined linux:
+#     return execCmdEx(fmt"xclip -selection clipboard -rmlastnl {$content}")
+#   elif defined macosx:
+#     return execCmdEx(fmt"pbcopy {$content}")
 
 
 proc clipboard_paste*(): tuple[output: TaintedString, exitCode: int] =
   ## Clipboard paste functionality.
   when defined linux:
-    return execCmdEx("xclip -selection clipboard -o")
+    return execCmdEx("xclip -selection clipboard -rmlastnl -out")
   elif defined macosx:
     return execCmdEx("pbpaste")
 
@@ -42,3 +42,4 @@ if is_main_module:
   echo set_display_off()
   echo set_process_name("MY_PROCESS_NAME")
   echo clipboard_paste()
+  # echo clipboard_copy("hello world")
