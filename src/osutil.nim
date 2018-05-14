@@ -1,7 +1,7 @@
 #!/usr/bin/nim c -r
 
 
-import osproc
+import osproc, strformat
 
 
 proc set_display_off*(): tuple[output: TaintedString, exitCode: int] =
@@ -22,12 +22,12 @@ when defined linux:
     prctl(name=cstring(name))
 
 
-# proc clipboard_copy*(content: string): tuple[output: TaintedString, exitCode: int] =
-#   ## Clipboard copy functionality.
-#   when defined linux:
-#     return execCmdEx("xclip -selection clipboard")
-#   elif defined macosx:
-#     return execCmdEx("pbcopy")
+proc clipboard_copy*(content: string): tuple[output: TaintedString, exitCode: int] =
+  ## Clipboard copy functionality.
+  when defined linux:
+    return execCmdEx(fmt"xclip -selection clipboard {content}")
+  elif defined macosx:
+    return execCmdEx(fmt"pbcopy {content}")
 
 
 proc clipboard_paste*(): tuple[output: TaintedString, exitCode: int] =
