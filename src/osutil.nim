@@ -1,7 +1,4 @@
-#!/usr/bin/nim c -r
-
-
-import osproc
+import osproc, posix
 
 
 proc set_display_off*(): tuple[output: TaintedString, exitCode: int] =
@@ -18,15 +15,21 @@ when defined linux:
     return
 
   proc set_process_name*(name: string): string =
+    ## Set Process Name.
     prctl(name=cstring(name))
+
+  proc set_process_cpu_limit*(limit: range[5..100] = 5): Process =
+    ## Set Process CPUs Limit cap, from 5% to 100% on global percentage, Linux-only.
+    return startProcess("cpulimit", "/usr/bin/", openArray[string](["--include-children", "--pid=" & $getpid(), "--limit=" & $limit]))
 
 
   if is_main_module:
     # If you dont set the process name, usually its always "nim" or "main".
     echo "Open your system monitor and check the process name of this."
     echo set_process_name("MY_PROCESS_NAME")
+    discard set_process_cpu_limit()
     # sleep 99999
 
 
-if is_main_module:
-  echo set_display_off()
+# if is_main_module:
+#   echo set_display_off()
