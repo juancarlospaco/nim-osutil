@@ -1,8 +1,10 @@
 # nim-os-util
 
+- This module is Linux-only.
 - Set the current Process name in Nim, shows up on system monitor with custom name.
 - Turn Display Off using Nim, 1 proc, turns off monitor, designed for long running tasks on mobile devices to save battery.
 - Set the current Process CPU Usage Limit cap from 5% to 100% on global percentage.
+- AT wrapper for Nim.
 
 ![screenshot](temp.png)
 
@@ -12,11 +14,12 @@
 ```nim
 >>> import osutil
 >>> echo set_process_name("MyAwesomeNimApp")
->>> discard set_process_cpu_limit(50)  # Max CPU usage 50%, 5%~100% is valid.
->>> echo set_process_ionice()          # Max I/O usage class 3, 0~3 is valid.
-(output: "", exitCode: 0)
->>> echo set_display_off()
-(output: "", exitCode: 0)
+>>> discard set_process_cpu_limit(50) # Max CPU usage 50%, 5%~100% is valid.
+>>> echo set_process_ionice()         # Max I/O usage class 3, 0~3 is valid.
+>>> echo at("midnight", "/bin/free")  # Free at Midnight, as Job 1. Poor mans AT wrapper for Nim.
+>>> echo atq()                        # Lists all AT Jobs with number ID from queue.
+>>> echo atrm(1)                      # Removes Job 1 from job queue.
+>>> echo set_display_off()            # Turn OFF monitor display.
 ```
 
 
@@ -35,6 +38,8 @@ nimble install osutil
 
 
 # Documentation
+
+- If something is missing from Docs check the source code, its executable by itself.
 
 <details>
     <summary><b>set_process_name("SomeName")</b></summary>
