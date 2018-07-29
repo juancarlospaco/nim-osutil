@@ -13,6 +13,8 @@
 >>> import osutil
 >>> echo set_process_name("MyAwesomeNimApp")
 >>> discard set_process_cpu_limit(50)  # Max CPU usage 50%, 5%~100% is valid.
+>>> echo set_process_ionice()          # Max I/O usage class 3, 0~3 is valid.
+(output: "", exitCode: 0)
 >>> echo set_display_off()
 (output: "", exitCode: 0)
 ```
