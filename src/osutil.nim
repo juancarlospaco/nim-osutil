@@ -22,10 +22,15 @@ when defined linux:
     ## Set Process CPUs Limit cap, from 5% to 100% on global percentage, Linux-only.
     return startProcess("cpulimit", "/usr/bin/", openArray[string](["--include-children", "--pid=" & $getpid(), "--limit=" & $limit]))
 
+  proc set_process_ionice*(scheduling_class: range[0..3] = 3): tuple[output: TaintedString, exitCode: int] =
+    ## Set Process I/O Limit cap, similar to https://nim-lang.org/docs/posix.html#nice,cint but for I/O (storage disks), Linux-only.
+    return execCmdEx("ionice --ignore --class " & $scheduling_class & " --pid " & $getpid())
+
   if is_main_module:
     # If you dont set the process name, usually its always "nim" or "main".
     echo "Open your system monitor and check the process name of this."
     echo set_process_name("MY_PROCESS_NAME")
+    echo set_process_ionice()
     discard set_process_cpu_limit()
     # sleep 99999
 

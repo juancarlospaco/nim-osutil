@@ -27,7 +27,9 @@ nimble install osutil
 
 # Requisites
 
-- [Nim](https://nim-lang.org)
+- `cpulimit`
+- `ionice`
+- `xset`
 
 
 # Documentation
@@ -77,6 +79,35 @@ Uses `cpulimit` **Only available on Linux.**
 `range[5..100]` type, defaults to `5` which means 5% CPU max, required.
 
 **Returns:** `Process`.
+
+</details>
+
+
+<details>
+    <summary><b>set_process_ionice(scheduling_class)</b></summary>
+
+**Description:**
+Set the current Process I/O Usage Limit cap from "Idle" to "Real-Time".
+
+Its similar to https://nim-lang.org/docs/posix.html#nice,cint but for I/O.
+
+`0` ~ `3` is valid. `2` makes no effect. This may delay I/O Operations to disk.
+
+`0` is `none`, `1` is `RealTime`, `2` is `best-effort` (Default), `3` is `idle`.
+
+The default of all systems is `2`, `best-effort`.
+
+This is designed for background unimportant stuff, do not use on user-facing GUI!.
+
+With this you can trade speed for lower I/O resource usage, for example you can extend battery life on mobile devices by doing so.
+
+Uses `ionice` **Only available on Linux.**
+
+**Arguments:**
+- `scheduling_class` A Limit on I/O Usage for your Process,
+`range[0..3]` type, defaults to `3` which means `idle`, `idle` means use I/O when idle, required.
+
+**Returns:** `tuple[output: TaintedString, exitCode: int]`.
 
 </details>
 
