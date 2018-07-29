@@ -15,13 +15,12 @@ when defined linux:
     return
 
   proc set_process_name*(name: string): string =
-    ## Set Process Name.
+    ## Set this process name from argument string using LibC.prctl().
     prctl(name=cstring(name))
 
   proc set_process_cpu_limit*(limit: range[5..100] = 5): Process =
     ## Set Process CPUs Limit cap, from 5% to 100% on global percentage, Linux-only.
     return startProcess("cpulimit", "/usr/bin/", openArray[string](["--include-children", "--pid=" & $getpid(), "--limit=" & $limit]))
-
 
   if is_main_module:
     # If you dont set the process name, usually its always "nim" or "main".
@@ -31,5 +30,16 @@ when defined linux:
     # sleep 99999
 
 
-# if is_main_module:
-#   echo set_display_off()
+# proc clipboard_copy*(content: string): tuple[output: TaintedString, exitCode: int] =
+#   ## Clipboard copy functionality.
+#   when defined linux:
+#     return execCmdEx(fmt"xclip -selection clipboard -rmlastnl {$content}")
+#   elif defined macosx:
+#     return execCmdEx(fmt"pbcopy {$content}")
+#
+# proc clipboard_paste*(): tuple[output: TaintedString, exitCode: int] =
+#   ## Clipboard paste functionality.
+#   when defined linux:
+#     return execCmdEx("xclip -selection clipboard -rmlastnl -out")
+#   elif defined macosx:
+#     return execCmdEx("pbpaste")
