@@ -29,9 +29,9 @@ nimble install osutil
 
 # Requisites
 
-- `cpulimit`
-- `ionice`
-- `xset`
+- `cpulimit` (Linux Package)
+- `ionice` (Linux Package)
+- `xset` (Linux Package)
 
 
 # Documentation
