@@ -1,12 +1,13 @@
 # nim-os-util
 
 - This module is Linux-only.
-- Set the current Process name in Nim, shows up on system monitor with custom name.
-- Turn Display Off using Nim, 1 proc, turns off monitor, designed for long running tasks on mobile devices to save battery.
-- Set the current Process CPU Usage Limit cap from 5% to 100% on global percentage.
-- AT wrapper for Nim.
+- `at` wrapper for Nim.
+- `cpulimit` wrapper for Nim.
+- `ionice` wrapper for Nim.
+- `xset` wrapper for Nim.
 
-![screenshot](temp.png)
+
+![screenshot](https://github.com/juancarlospaco/nim-osutil/raw/master/temp.png)
 
 
 # Use
