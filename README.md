@@ -35,6 +35,7 @@ nimble install osutil
 - `cpulimit` (Linux Package)
 - `ionice` (Linux Package)
 - `xset` (Linux Package)
+- `at` (Linux Package)
 
 
 # Documentation
